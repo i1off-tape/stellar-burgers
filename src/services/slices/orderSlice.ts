@@ -68,7 +68,8 @@ export const orderSelectors = {
   currentOrderLoadingSelect: (state: RootState) =>
     state.order.currentOrderLoading,
   orderIsLoadingSelect: (state: RootState) =>
-    state.order.requestStatus === RequestStatus.Loading
+    state.order.requestStatus === RequestStatus.Loading,
+  orderStatusSelect: (state: RootState) => state.order.requestStatus
 };
 
 export default orderSlice.reducer;
