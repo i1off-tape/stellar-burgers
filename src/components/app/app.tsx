@@ -28,7 +28,7 @@ import { fetchUser } from '../../services/thunks/userThunk';
 import { useEffect } from 'react';
 import { AppHeader } from '@components';
 import { Preloader } from '@ui';
-import { only } from 'node:test';
+import { deleteCookie } from '../../utils/cookie';
 
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
@@ -67,10 +67,18 @@ const ModalSwitch = () => {
   const isChecked = useSelector(userSelectors.isAuthCheckedSelect);
 
   useEffect(() => {
-    if (!isChecked && localStorage.getItem('refreshToken')) {
-      dispatch(fetchUser());
-    } else if (!localStorage.getItem('refreshToken')) {
-      dispatch(userActions.setUserCheck());
+    if (!isChecked) {
+      const refreshToken = localStorage.getItem('refreshToken');
+      if (refreshToken) {
+        dispatch(fetchUser()).catch(() => {
+          // Если fetchUser не удался, токен истек
+          localStorage.removeItem('refreshToken');
+          deleteCookie('accessToken');
+          dispatch(userActions.setUserCheck());
+        });
+      } else {
+        dispatch(userActions.setUserCheck());
+      }
     }
   }, [dispatch, isChecked]);
 

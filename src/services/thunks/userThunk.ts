@@ -12,7 +12,7 @@ import {
 } from '@api';
 
 import { TUser } from '@utils-types';
-import { deleteCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 //Получаем данные пользователя
 export const fetchUser = createAsyncThunk<TUser>('user/fetchUser', async () => {
@@ -26,6 +26,7 @@ export const loginUser = createAsyncThunk<TUser, TLoginData>(
   async (data) => {
     const response = await loginUserApi(data);
     localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
     return response.user;
   }
 );
@@ -36,6 +37,7 @@ export const registerUser = createAsyncThunk<TUser, TRegisterData>(
   async (data) => {
     const response = await registerUserApi(data);
     localStorage.setItem('refreshToken', response.refreshToken);
+    setCookie('accessToken', response.accessToken);
     return response.user;
   }
 );

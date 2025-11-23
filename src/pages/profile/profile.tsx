@@ -35,17 +35,18 @@ export const Profile: FC = () => {
     if (!user) return;
     dispatch(
       updateUser({
-        name: formValue.name,
-        email: formValue.email,
+        name: formValue.name || user.name,
+        email: formValue.email || user.email,
         ...(formValue.password && { password: formValue.password })
       })
     )
       .unwrap()
       .then(() => {
         setFormValue((prev) => ({ ...prev, password: '' }));
+        alert('Данные пользователя успешно обновлены');
       })
-      .catch(() => {
-        // Ошибка в slice
+      .catch((error) => {
+        alert(error.message || 'Не удалось обновить данные пользователя');
       });
   };
 
@@ -65,24 +66,12 @@ export const Profile: FC = () => {
     }));
   };
 
-  const handleLogout = () => {
-    dispatch(logoutUser())
-      .unwrap()
-      .then(() => {
-        navigate('/login', { replace: true });
-      })
-      .catch(() => {
-        // Ошибка
-      });
-  };
-
   return (
     <ProfileUI
       formValue={formValue}
       isFormChanged={isFormChanged}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
-      handleLogout={handleLogout}
       handleInputChange={handleInputChange}
     />
   );
