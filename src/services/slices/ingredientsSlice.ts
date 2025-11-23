@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { fetchIngredients } from '../thunks/ingredientsThunk';
 
@@ -6,18 +6,27 @@ type TIngredientsState = {
   isLoading: boolean;
   ingredients: TIngredient[];
   error: string | null;
+  selectedIngredient: TIngredient | null;
 };
 
 const initialState: TIngredientsState = {
   ingredients: [],
   isLoading: false,
-  error: null
+  error: null,
+  selectedIngredient: null
 };
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedIngredient: (
+      state,
+      action: PayloadAction<TIngredient | null>
+    ) => {
+      state.selectedIngredient = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
@@ -37,3 +46,4 @@ const ingredientsSlice = createSlice({
 
 export default ingredientsSlice.reducer;
 export { fetchIngredients };
+export const { setSelectedIngredient } = ingredientsSlice.actions;
