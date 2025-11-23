@@ -43,11 +43,8 @@ export const Profile: FC = () => {
       .unwrap()
       .then(() => {
         setFormValue((prev) => ({ ...prev, password: '' }));
-        alert('Данные пользователя успешно обновлены');
       })
-      .catch((error) => {
-        alert(error.message || 'Не удалось обновить данные пользователя');
-      });
+      .catch(() => {});
   };
 
   const handleCancel = (e: SyntheticEvent) => {
