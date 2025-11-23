@@ -17,7 +17,8 @@ import {
   Routes,
   useLocation,
   useNavigate,
-  Navigate
+  Navigate,
+  useMatch
 } from 'react-router-dom';
 import { Modal } from '@components';
 import { IngredientDetails, OrderInfo } from '@components';
@@ -43,6 +44,10 @@ const ModalSwitch = () => {
   const handleClose = () => {
     navigate(-1);
   };
+
+  const profileMatch = useMatch('/profile/orders/:number')?.params.number;
+  const feedMatch = useMatch('/feed/:number')?.params.number;
+  const orderNumber = profileMatch || feedMatch;
 
   return (
     <>
@@ -105,7 +110,10 @@ const ModalSwitch = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='' onClose={handleClose}>
+              <Modal
+                title={`#${orderNumber && orderNumber.padStart(6, '0')}`}
+                onClose={handleClose}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -122,7 +130,10 @@ const ModalSwitch = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='' onClose={handleClose}>
+                <Modal
+                  title={`#${orderNumber && orderNumber.padStart(6, '0')}`}
+                  onClose={handleClose}
+                >
                   <OrderInfo />
                 </Modal>
               </ProtectedRoute>
