@@ -6,6 +6,8 @@ import {
   constructorActions,
   constructorSelectors
 } from '../../services/slices/constructorSlice';
+import { orderActions, orderSelectors } from '../../services/slices/orderSlice';
+import { createOrder } from '../../services/thunks/orderThunk';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -14,14 +16,25 @@ export const BurgerConstructor: FC = () => {
   ) || { bun: null, ingredients: [] };
   /** TODO: взять переменные , orderRequest и orderModalData из стора */
 
-  const orderRequest = false;
+  const orderRequest = useSelector(orderSelectors.newOrderRequestSelect);
 
-  const orderModalData = null;
+  const orderModalData = useSelector(orderSelectors.newOrderSelect);
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    const ingredientsIds = [
+      constructorItems.bun._id,
+      ...constructorItems.ingredients.map((item) => item._id),
+      constructorItems.bun._id
+    ];
+
+    dispatch(createOrder(ingredientsIds));
   };
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    dispatch(orderActions.clearNewOrder());
+    dispatch(constructorActions.clearConstructor());
+  };
 
   const price = useMemo(
     () =>
