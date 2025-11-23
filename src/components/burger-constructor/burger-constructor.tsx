@@ -8,9 +8,13 @@ import {
 } from '../../services/slices/constructorSlice';
 import { orderActions, orderSelectors } from '../../services/slices/orderSlice';
 import { createOrder } from '../../services/thunks/orderThunk';
+import { userSelectors } from '../../services/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(userSelectors.userSelect);
   const constructorItems = useSelector(
     constructorSelectors.constructorBurgerElement
   ) || { bun: null, ingredients: [] };
@@ -21,6 +25,11 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if (!user) {
+      navigate('/login');
+      return;
+    }
 
     const ingredientsIds = [
       constructorItems.bun._id,
