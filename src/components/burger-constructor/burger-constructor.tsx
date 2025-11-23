@@ -14,7 +14,6 @@ export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(
     constructorSelectors.constructorBurgerElement
   ) || { bun: null, ingredients: [] };
-  /** TODO: взять переменные , orderRequest и orderModalData из стора */
 
   const orderRequest = useSelector(orderSelectors.newOrderRequestSelect);
 
