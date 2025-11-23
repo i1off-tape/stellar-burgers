@@ -22,14 +22,36 @@ import {
 } from 'react-router-dom';
 import { Modal } from '@components';
 import { IngredientDetails, OrderInfo } from '@components';
-
+import { useSelector, useDispatch } from '../../services/store';
+import { userSelectors, userActions } from '../../services/slices/userSlice';
+import { fetchUser } from '../../services/thunks/userThunk';
+import { useEffect } from 'react';
 import { AppHeader } from '@components';
+import { Preloader } from '@ui';
+import { only } from 'node:test';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = true; // TODO: Сделать авторизацию
+type ProtectedRouteProps = {
+  onlyUnAuth?: boolean;
+  children: React.ReactNode;
+};
 
-  if (!isAuthenticated) {
-    return <Navigate to='/login' replace />;
+const ProtectedRoute = ({
+  onlyUnAuth = false,
+  children
+}: ProtectedRouteProps) => {
+  const user = useSelector(userSelectors.userSelect);
+  const isAuthChecked = useSelector(userSelectors.isAuthCheckedSelect);
+
+  if (!isAuthChecked) {
+    return <Preloader />;
+  }
+
+  if (!onlyUnAuth && !user) {
+    return <Navigate replace to='/login' />;
+  }
+
+  if (onlyUnAuth && user) {
+    return <Navigate replace to='/' />;
   }
 
   return <>{children}</>;
@@ -40,6 +62,17 @@ const ModalSwitch = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state?.background;
+
+  const dispatch = useDispatch();
+  const isChecked = useSelector(userSelectors.isAuthCheckedSelect);
+
+  useEffect(() => {
+    if (!isChecked && localStorage.getItem('refreshToken')) {
+      dispatch(fetchUser());
+    } else if (!localStorage.getItem('refreshToken')) {
+      dispatch(userActions.setUserCheck());
+    }
+  }, [dispatch, isChecked]);
 
   const handleClose = () => {
     navigate(-1);
@@ -57,7 +90,7 @@ const ModalSwitch = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -65,7 +98,7 @@ const ModalSwitch = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -73,7 +106,7 @@ const ModalSwitch = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -81,7 +114,7 @@ const ModalSwitch = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
