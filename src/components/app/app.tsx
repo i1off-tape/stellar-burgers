@@ -144,3 +144,5 @@ const App = () => (
 );
 
 export default App;
+
+// Тест коммита на моё имя
