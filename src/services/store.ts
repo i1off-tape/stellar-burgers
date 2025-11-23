@@ -11,7 +11,7 @@ import {
 
 const rootReducer = combineReducers({
   ingredients: ingredientsSlice,
-  constructor: constructorSlice,
+  burgerConstructor: constructorSlice,
   order: orderSlice
 });
 

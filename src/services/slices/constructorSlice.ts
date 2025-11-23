@@ -13,7 +13,7 @@ const initialState: TConstructorState = {
 };
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredient: (
@@ -24,7 +24,10 @@ const constructorSlice = createSlice({
       if (ingredient.type === 'bun') {
         state.bun = { ...ingredient, id: Date.now().toString() };
       } else {
-        state.fillings.push({ ...ingredient, id: Date.now().toString() });
+        state.fillings = [
+          ...state.fillings,
+          { ...ingredient, id: Date.now().toString() }
+        ];
       }
     },
     removeIngredient: (state, action: PayloadAction<{ id: string }>) => {
@@ -50,19 +53,13 @@ const constructorSlice = createSlice({
 export const constructorActions = constructorSlice.actions;
 
 export const constructorSelectors = {
-  constructorBurgerElement: createSelector(
-    [
-      (state: RootState) => state.constructor.bun,
-      (state: RootState) => state.constructor.fillings
-    ],
-    (bun, fillings) => ({
-      bun,
-      ingredients: fillings || []
-    })
-  ),
-  constructorBurgerIsBun: (state: RootState) => state.constructor.bun,
+  constructorBurgerElement: (state: RootState) => ({
+    bun: state.burgerConstructor.bun,
+    ingredients: state.burgerConstructor.fillings
+  }),
+  constructorBurgerIsBun: (state: RootState) => state.burgerConstructor.bun,
   constructorBurgerIsIngredients: (state: RootState) =>
-    state.constructor.fillings
+    state.burgerConstructor.fillings
 };
 
 export default constructorSlice.reducer;
