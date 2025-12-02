@@ -1,21 +1,35 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
+import { useSelector, useDispatch } from '../../services/store';
+import { orderActions, orderSelectors } from '../../services/slices/orderSlice';
+import { useParams } from 'react-router-dom';
+import { fetchOrderByNumber } from '../../services/thunks/orderThunk';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const dispatch = useDispatch();
+  const { number } = useParams<{ number: string }>();
+  const orderData = useSelector(orderSelectors.currentOrderSelect);
 
-  const ingredients: TIngredient[] = [];
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const isLoading = useSelector(orderSelectors.currentOrderLoadingSelect);
+
+  useEffect(() => {
+    if (number) {
+      const orderNumber = Number(number);
+
+      // Очищаем заказ, если он не соответствует запрошенному номеру
+      if (orderData && orderData.number !== orderNumber) {
+        dispatch(orderActions.clearCurrentOrder());
+      }
+
+      // Загружаем заказ, если его нет или номер не совпадает
+      if (!orderData || orderData.number !== orderNumber) {
+        dispatch(fetchOrderByNumber(orderNumber));
+      }
+    }
+  }, [number, orderData, dispatch]);
 
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
@@ -59,7 +73,7 @@ export const OrderInfo: FC = () => {
     };
   }, [orderData, ingredients]);
 
-  if (!orderInfo) {
+  if (isLoading || !orderInfo) {
     return <Preloader />;
   }
 
