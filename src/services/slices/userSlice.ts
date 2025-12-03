@@ -9,9 +9,8 @@ import {
   forgotPassword,
   resetPassword
 } from '../thunks/userThunk';
-import { stat } from 'fs';
 
-type TUserState = {
+export type TUserState = {
   user: TUser | null;
   userCheck: boolean;
   requestStatus: RequestStatus;

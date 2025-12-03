@@ -3,7 +3,7 @@ import { TOrder, RequestStatus } from '@utils-types';
 import { createOrder, fetchOrderByNumber } from '../thunks/orderThunk';
 import { RootState } from '../store';
 
-type TOrderState = {
+export type TOrderState = {
   newOrder: TOrder | null;
   newOrderRequest: boolean;
   currentOrder: TOrder | null;

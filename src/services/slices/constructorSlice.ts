@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { RootState } from '../store';
 
-type TConstructorState = {
+export type TConstructorState = {
   bun: TConstructorIngredient | null;
   fillings: TConstructorIngredient[];
 };

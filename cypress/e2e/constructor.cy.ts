@@ -46,6 +46,10 @@ describe('Проверка открытия и закрытия модально
     cy.get('[data-cy=modal]')
       .contains('Краторная булка N-200i')
       .should('exist');
+    cy.get('[data-cy=cal]').contains('420').should('exist');
+    cy.get('[data-cy=proteins]').contains('80').should('exist');
+    cy.get('[data-cy=fat]').contains('24').should('exist');
+    cy.get('[data-cy=carbohydrates]').contains('53').should('exist');
   });
 
   it('Проверяем кнопку закрытия модального окна', () => {
@@ -105,5 +109,9 @@ describe('Проверка работы модального окна при с�
     cy.get('[data-cy=close-modal]').click();
 
     cy.get('[data-cy=modal]').should('not.exist');
+
+    cy.get('[data-cy=constructor-bun-top-empty]').should('exist');
+    cy.get('[data-cy=constructor-filling-empty]').should('exist');
+    cy.get('[data-cy=constructor-bun-bottom-empty]').should('exist');
   });
 });
