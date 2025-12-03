@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { fetchIngredients } from '../thunks/ingredientsThunk';
 
-type TIngredientsState = {
+export type TIngredientsState = {
   isLoading: boolean;
   ingredients: TIngredient[];
   error: string | null;

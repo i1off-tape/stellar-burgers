@@ -3,7 +3,7 @@ import { TOrdersData, TOrder, RequestStatus } from '@utils-types';
 import { fetchFeed, fetchProfileOrders } from '../thunks/feedsThunk';
 import { RootState } from '../store';
 
-type TFeedsState = {
+export type TFeedsState = {
   feed: TOrdersData | null;
   orderAuth: TOrder[];
   requestStatus: RequestStatus;
