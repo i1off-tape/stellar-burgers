@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "name": "Флюоресцентный люминесцентный бургер",
+  "order": {
+    "ingredients": [
+      {
+        "_id": "1",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "2",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "proteins": 420,
+        "fat": 142,
+        "carbohydrates": 242,
+        "calories": 4242,
+        "price": 424,
+        "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "3",
+        "name": "Соус Spicy-X",
+        "type": "sauce",
+        "proteins": 30,
+        "fat": 20,
+        "carbohydrates": 40,
+        "calories": 30,
+        "price": 90,
+        "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+        "__v": 0
+      },
+      {
+        "_id": "1",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0
+      }
+    ],
+    "_id": "777",
+    "owner": {
+      "name": "Test",
+      "email": "mail.13@gmail.com",
+      "createdAt": "2025-11-23T10:21:27.653Z",
+      "updatedAt": "2025-11-24T12:12:48.326Z"
+    },
+    "status": "done",
+    "name": "Флюоресцентный люминесцентный бургер",
+    "createdAt": "2025-12-03T00:42:37.752Z",
+    "updatedAt": "2025-12-03T00:42:38.090Z",
+    "number": 95983,
+    "price": 2964
+  }
+}

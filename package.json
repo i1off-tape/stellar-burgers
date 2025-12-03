@@ -91,11 +91,25 @@
     "build-storybook": "storybook build",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier ./src --write"
+    "format": "prettier ./src --write",
+    "cypress:open": "cypress open",
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@pages": "<rootDir>/src/pages",
+      "^@components": "<rootDir>/src/components",
+      "^@ui": "<rootDir>/src/components/ui",
+      "^@ui-pages": "<rootDir>/src/components/ui/pages",
+      "^@utils-types": "<rootDir>/src/utils/types",
+      "^@api": "<rootDir>/src/utils/burger-api.ts",
+      "^@slices": "<rootDir>/src/services/slices",
+      "^@selectors": "<rootDir>/src/services/selectors"
+    }
   }
 }
