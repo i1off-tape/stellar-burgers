@@ -50,7 +50,10 @@ describe('[constructorSlice] Служба конструктора бургер�
           ingredient: mockBun
         });
         const state = constructorSlice(initialState, action);
-        expect(state.bun).toEqual({ ...mockBun, id: expect.any(String) });
+        expect(state.bun).toEqual({
+          ...mockBun,
+          id: expect.stringMatching(/\d+/)
+        });
         expect(state.fillings).toEqual([]);
       });
 
@@ -63,7 +66,7 @@ describe('[constructorSlice] Служба конструктора бургер�
         expect(state.fillings).toHaveLength(1);
         expect(state.fillings[0]).toEqual({
           ...mockFilling,
-          id: expect.any(String)
+          id: expect.stringMatching(/\d+/)
         });
       });
 
@@ -75,7 +78,10 @@ describe('[constructorSlice] Служба конструктора бургер�
         const newBun = { ...mockBun, _id: '1', name: 'Краторная булка N-200i' };
         const action = constructorActions.addIngredient({ ingredient: newBun });
         const state = constructorSlice(modifiedState, action);
-        expect(state.bun).toEqual({ ...newBun, id: expect.any(String) });
+        expect(state.bun).toEqual({
+          ...newBun,
+          id: expect.stringMatching(/\d+/)
+        });
       });
     });
 

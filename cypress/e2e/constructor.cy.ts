@@ -5,7 +5,7 @@ describe('Добавление ингредиентов в конструкто�
       'getIngredients'
     );
     cy.viewport(1300, 800);
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
   });
 
   it('Добавляем основной ингредиент булку', () => {
@@ -36,7 +36,7 @@ describe('Проверка открытия и закрытия модально
       'getIngredients'
     );
     cy.viewport(1300, 800);
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
   });
 
   it('Проверяем открытие модального окна', () => {
@@ -82,7 +82,7 @@ describe('Проверка работы модального окна при с�
     window.localStorage.setItem('refreshToken', 'testToken');
     cy.setCookie('accessToken', 'Bearer testToken');
     cy.viewport(1300, 800);
-    cy.visit('http://localhost:4000');
+    cy.visit('/');
   });
 
   afterEach(() => {
