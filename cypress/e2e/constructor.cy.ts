@@ -40,11 +40,13 @@ describe('Проверка открытия и закрытия модально
   });
 
   it('Проверяем открытие модального окна', () => {
-    cy.contains('Детали ингредиента').should('not.exist');
+    cy.get('[data-cy=modal-title]').should('not.exist');
     cy.get('[data-cy=ingredients-bun]')
       .contains('Краторная булка N-200i')
       .click();
-    cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-cy=modal-title]')
+      .contains('Детали ингредиента')
+      .should('exist');
     cy.get('[data-cy=modal]')
       .contains('Краторная булка N-200i')
       .should('exist');
@@ -58,27 +60,33 @@ describe('Проверка открытия и закрытия модально
     cy.get('[data-cy=ingredients-bun]')
       .contains('Краторная булка N-200i')
       .click();
-    cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-cy=modal-title]')
+      .contains('Детали ингредиента')
+      .should('exist');
     cy.get('[data-cy=close-modal]').click();
-    cy.contains('Детали ингредиента').should('not.exist');
+    cy.get('[data-cy=modal-title]').should('not.exist');
   });
 
   it('Проверяем закрытие вне модального окна', () => {
     cy.get('[data-cy=ingredients-bun]')
       .contains('Краторная булка N-200i')
       .click();
-    cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-cy=modal-title]')
+      .contains('Детали ингредиента')
+      .should('exist');
     cy.get('[data-cy=modal-overlay]').click('left', { force: true });
-    cy.contains('Детали ингредиента').should('not.exist');
+    cy.get('[data-cy=modal-title]').should('not.exist');
   });
 
   it('Проверяем закрытие по кнопке ESC', () => {
     cy.get('[data-cy=ingredients-bun]')
       .contains('Краторная булка N-200i')
       .click();
-    cy.contains('Детали ингредиента').should('exist');
+    cy.get('[data-cy=modal-title]')
+      .contains('Детали ингредиента')
+      .should('exist');
     cy.get('body').type('{esc}');
-    cy.contains('Детали ингредиента').should('not.exist');
+    cy.get('[data-cy=modal-title]').should('not.exist');
   });
 });
 
